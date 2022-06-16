@@ -1,0 +1,59 @@
+@import "../../node_modules/bootstrap/scss/bootstrap";
+
+#footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: red;
+  color: white;
+  text-align: center;
+}
+
+.bd-placeholder-img {
+  font-size: 1.125rem;
+  text-anchor: middle;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+}
+
+@media (min-width: 768px) {
+  .bd-placeholder-img-lg {
+    font-size: 3.5rem;
+  }
+}
+
+.madeCard{
+  background-color: #5a5a5a;
+  height: 300px;
+  width: 200px;
+  border-radius: 5px;
+  background-size: 200px 300px;
+  transition: all .3s;
+}
+
+.madeCard:hover{
+  transform: scale(1.01);
+}
+
+.cardContainer{
+  border: 1px solid rgba(90, 90, 90, 0);
+  border-radius: 5px;
+  padding: 5px;
+  margin: 2em 0;
+}
+
+#editBookBtn{
+  width: 100px !important;
+}
+
+@media (max-width: 469px) {
+  .cardContainer{
+    margin: 1em auto;
+  }
+}
+
+.active{
+  font-weight: inherit;
+}

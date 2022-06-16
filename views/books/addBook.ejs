@@ -1,0 +1,70 @@
+<%- include('partials/header')%>
+<div style="margin-top: 2em;" class="container display-5">
+    <h3 class="text-center">Add Book</h3>
+    <hr style="height: 1px;">
+    <form style="padding: 0 300px;" method="post" action="<%if(bookPresent.valid){%> /api/books/addBook/<%- bookPresent.book.id%> <%}else{%> /api/books/addBook <%}%>">
+
+        <div class="row g-3 align-items-center">
+            <div class="col">
+                <label class="form-label fs-6" for="title">Title</label>
+                <input <%if(bookPresent.valid == true){%> value="<%- bookPresent.book.title%>" <%}%> class="form-control form-control-sm" type="text" id="title" name="title">
+            </div>
+
+            <div class="col">
+                <label for="img" class="form-label fs-6">Img URL</label>
+                <input <%if(bookPresent.valid == true){%> value="<%- bookPresent.book.img%>" <%}%> type="text" class="form-control form-control-sm" id="img" name="img">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="author" class="form-label fs-6">Author</label>
+            <select class="form-control" id="author" name="author_id" required>
+                <% if (!bookPresent.valid) {%>
+                    <option selected value="">Select...</option>
+                <%}%>
+                <% for(let i=0; i<authors.length; i++) {%>
+                    <% if(bookPresent.valid && bookPresent.book.author_id == authors[i].id){%>
+                        <option selected value="<%- authors[i].id%>"><%- authors[i].name%></option>
+                    <%}else{%>
+                        <option value="<%- authors[i].id%>"><%- authors[i].name%></option>
+                    <%}%>
+                <%}%>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="description" class="form-label fs-6">Description</label>
+            <% if(bookPresent.valid){%>
+                <textarea class="form-control" id="description" rows="2" name="description"><%- bookPresent.book.description%></textarea>
+            <%}else{%>
+                <textarea class="form-control" id="description" rows="2" name="description"></textarea>
+            <%}%>
+        </div>
+
+        <div class="row g-3 align-items-center">
+            <div class="col-auto">
+                <label for="year" class="form-label fs-6">Year</label>
+                <select class="form-control" id="year" name="year" required>
+                    <% if(!bookPresent.valid){%>
+                        <option selected value="">Select...</option>
+                    <%}%>
+                    <% for(let i=0; i<years.length; i++) {%>
+                        <% if(bookPresent.valid && bookPresent.book.year == years[i]){%>
+                            <option selected value="<%- years[i]%>"><%- years[i]%></option>
+                        <%}%>
+                        <option value="<%- years[i]%>"><%- years[i]%></option>
+                    <%}%>
+                </select>
+            </div>
+
+            <div class="col-auto">
+                <label for="pages" class="form-label fs-6">Pages</label>
+                <input <% if(bookPresent.valid){%> value="<%- bookPresent.book.pages%>" <%}%>type="number" class="form-control form-control-sm" id="pages" name="pages">
+            </div>
+        </div>
+
+        <button class="btn btn-success" type="submit"><%if(bookPresent.valid){%> Submit changes <%}else{%> Add <%}%></button>
+        <a class="btn btn-danger" href="<% if(bookPresent.valid){%> /api/books/details/<%- bookPresent.book.id%> <%}else{%>  /api/books/addBook <%}%>">Cancel</a>
+    </form>
+</div>
+<%- include('partials/footer')%>

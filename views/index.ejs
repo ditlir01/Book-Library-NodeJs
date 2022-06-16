@@ -1,0 +1,41 @@
+<%- include('partials/header') %>
+<main>
+    <section class="py-5 text-center container">
+        <div class="row py-lg-5">
+            <div class="col-lg-6 col-md-8 mx-auto">
+                <h1 class="fw-light display-5 fs-2">Book Library</h1>
+                <div class="input-group mt-3">
+                    <input id="searchInput" type="search" class="form-control rounded" placeholder="Search a book" aria-label="Search" aria-describedby="search-addon" />
+                    <button onclick="submitSearch()" type="button" class="btn btn-outline-primary">search</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Cards -->
+    <div style="margin-top: 4em;" class="container">
+        <h2 class="display-5 fs-4" style="color: #0d6efd;">Most popular</h2>
+        <hr style="color: #0d6efd; height: 3px;">
+
+        <div style="margin: auto" class="d-flex justify-content-start flex-wrap">
+            <% for(let i=0; i<books.length; i++) {%>
+                <div onclick="redirectToBook(<%- books[i].id%>)" id="bookCard" class="cardContainer">
+                    <div class="madeCard" style="background-image: url('<%- books[i].img%>');">
+                    </div>
+                </div>
+            <% }%>
+        </div>
+    </div>
+</main>
+<%- include('partials/footer') %>
+
+<script>
+    function redirectToBook(id){
+        window.location.href = '/api/books/details/'+id;
+    }
+
+    function submitSearch(){
+        let inputSearch = document.getElementById('searchInput').value;
+        window.location.href = '/api/books/paginated/collection/'+inputSearch;
+    }
+</script>

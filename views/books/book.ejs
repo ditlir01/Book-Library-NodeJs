@@ -1,0 +1,24 @@
+<%- include('partials/header')%>
+<h1 style="font-weight: initial; margin-top: 30px" class="text-center display-5 fs-2">"<%- book.title%>" book review</h1>
+<div class="container mt-5">
+    <hr>
+</div>
+
+<div class="container d-flex align-items-center justify-content-center mt-3">
+    <div class="image">
+        <div style="border-radius: 5px; background-size: 200px 300px; width: 200px; height: 300px; background-image: url(<%- book.img%>)"></div>
+    </div>
+    <div class="text" style="padding-left: 20px">
+        <div class="row">
+            <h6 class="col-12 display-5" style="font-size: 18px"><%- book.description%></h6>
+            <div class="mt-2">
+                <a style="text-decoration: none;" href="<%- author.thumb%>" class="col-12 display-5 fs-6"><span class="fw-bold">Author:</span> <%- author.name%></a>
+                <p class="col-12 display-5 fs-6"><span class="fw-bold">Year of publish:</span> <%- book.year%></p>
+                <p class="col-12 display-5 fs-6"><span class="fw-bold">Pages:</span> <%- book.pages%></p>
+            </div>
+            <a style="margin-right: 5px;" id="editBookBtn" class="col-12 btn btn-success" href="/api/books/addBook/<%- book.id%>">Edit book</a>
+            <a id="editBookBtn" class="btn btn-danger" href="/api/books/delete/<%- book.id%>">Delete</a>
+        </div>
+    </div>
+</div>
+<%- include('partials/footer')%>

@@ -1,0 +1,47 @@
+<%- include('partials/header')%>
+<div style="margin-top: 30px" class="container">
+    <div class="mb-3 input-group mt-3">
+        <input type="search" id="searchInput" class="form-control rounded" placeholder="Search a book" aria-label="Search" aria-describedby="search-addon" />
+        <button onclick="submitSearch()" type="button" class="btn btn-outline-primary">search</button>
+    </div>
+
+    <div class="list-group list-group-flush border-bottom">
+        <% for(let i=0; i<booksList.length; i++) {%>
+        <a onclick="redirectToBook(<%- booksList[i].book.id%>)" href="#" class="display-5 list-group-item list-group-item-action py-3 lh-sm" aria-current="true">
+            <div class="d-flex w-100 align-items-center justify-content-between">
+                <strong class="mb-1 fs-5 fw-bold"><%- booksList[i].book.title%></strong>
+                <small class="display-5 fs-6"><span class="fw-bold">Year:</span> <%- booksList[i].book.year%></small>
+            </div>
+            <div class="col-10 mb-1 small fs-6"><%- booksList[i].author.name%></div>
+        </a>
+        <%}%>
+    </div>
+
+    <% if(paginated.valid && paginated.totalPages > 1) {%>
+    <nav style="margin-top: 20px;" aria-label="Page navigation example">
+        <ul class="pagination justify-content-center">
+            <li class="page-item <% if(paginated.page <= 1) {%> disabled <%}%>">
+                <a class="page-link" href="?page=<%- paginated.page-1%>">Previous</a>
+            </li>
+            <% for(let i=1; i<=paginated.totalPages; i++) {%>
+            <li class="page-item <% if(paginated.page == i) {%> active <% }%>>"><a class="page-link" href="?page=<%- i%>"><%- i%></a></li>
+            <% }%>
+            <li class="page-item <% if(paginated.page >= paginated.totalPages) {%> disabled <%}%>>">
+                <a class="page-link" href="?page=<%- paginated.page+1%>">Next</a>
+            </li>
+        </ul>
+    </nav>
+    <% }%>
+</div>
+<%- include('partials/footer')%>
+
+<script>
+    function redirectToBook(id){
+        window.location.href = '/api/books/details/'+id;
+    }
+
+    function submitSearch(){
+        let inputSearch = document.getElementById('searchInput').value;
+        window.location.href = '/api/books/paginated/collection/'+inputSearch;
+    }
+</script>

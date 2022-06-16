@@ -1,0 +1,171 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Hugo 0.84.0">
+    <title><%- title%></title>
+
+    <link rel="stylesheet" href="/stylesheets/main-style.css">
+    <style>
+        html,
+        body {
+            height: 100%;
+        }
+
+        body {
+            display: flex;
+            align-items: center;
+            padding-top: 40px;
+            padding-bottom: 40px;
+            background-color: #f5f5f5;
+        }
+
+        .form-signin {
+            width: 100%;
+            max-width: 330px;
+            padding: 15px;
+            margin: auto;
+        }
+
+        .form-signin .form-floating:focus-within {
+            z-index: 2;
+        }
+
+        .form-signin input[type="text"] {
+            margin-bottom: -1px;
+            border-bottom-right-radius: 0;
+            border-bottom-left-radius: 0;
+        }
+
+        .form-signin input[type="email"] {
+            margin-bottom: -1px;
+            border-radius: 0;
+        }
+
+        .form-signin input[type="password"] {
+            margin-bottom: 10px;
+            border-top-left-radius: 0;
+            border-top-right-radius: 0;
+        }
+    </style>
+</head>
+<body class="text-center">
+
+<main class="form-signin">
+    <form method="post" action="/api/users/register">
+        <h1 class="h3 mb-3 fw-normal display-5">Sign Up</h1>
+
+
+        <div class="form-floating">
+            <input
+                    <% if(formData.valid == false){ %>
+                        value="<%- formData.name.value%>"
+                    <%}%>
+                    name="name"
+                    type="text"
+                    class="form-control <%
+                    if(formData.valid == false) {
+                        if(formData.name.valid == false) {%>
+                            is-invalid
+                        <% }
+                    }%>"
+                    id="name"
+                    placeholder="Your name...">
+
+            <label
+                    <%if(formData.valid == false) {
+                        if (formData.name.valid == false) {%>
+                            class="text-danger"
+                        <%}
+                    }%>
+                    for="name">Name</label>
+        </div>
+
+        <div class="form-floating">
+            <input
+                    <%if(formData.valid == false) { %>
+                        value="<%- formData.email.value %>"
+                    <%}%>
+                    name="email"
+                    type="email"
+                    class="form-control
+                        <%if(formData.valid == false) {
+                            if(formData.email.valid == false){%>
+                                is-invalid
+                            <%}
+                        }%>"
+                    id="email"
+                    placeholder="name@example.com">
+
+            <label
+                    <%if(formData.valid == false) {
+                        if(formData.email.valid == false){%>
+                            class="text-danger"
+                        <%}
+                    }%>
+                    for="email">Email address</label>
+        </div>
+
+        <div class="form-floating">
+            <input
+                    name="psw"
+                    type="password"
+                    class="form-control
+                        <% if(formData.valid == false){
+                            if(formData.psw.valid == false){%>
+                                is-invalid
+                            <%}
+                    }%>"
+                    id="psw"
+                    placeholder="Password">
+
+            <label
+                    <% if(formData.valid == false) {
+                        if(formData.psw.valid == false) {%>
+                            class="text-danger"
+                        <%}
+                    }%>
+                    for="psw">Password</label>
+        </div>
+
+        <% if(formData.valid == false) {%>
+        <div class="alert-danger alert text-start">
+            <ul>
+                <%if(formData.name.valid == false) {%>
+                    <li>Name is incorrect.</li>
+                <%}%>
+
+                <%if(formData.email.valid == false) {%>
+                    <li >Email is incorrect.</li>
+                <%}%>
+
+                <%if(formData.psw.valid == false){%>
+                <li>Password must container min 1 uppe rcase letter, min 1 lower case letter and min 1 number.</li>
+                <%}%>
+            </ul>
+        </div>
+        <%}%>
+
+        <%if(errMsg.valid){%>
+        <div class="alert alert-danger text-start">
+            <p><%- errMsg.msg%></p>
+        </div>
+        <%}%>
+
+        <div class="checkbox mb-3">
+            <a href="/api/users/login">Already have an account</a>
+        </div>
+
+        <button class="btn btn-lg btn-primary " type="submit">Register</button>
+        <a href="" class="btn btn-lg btn-danger">Cancel</a>
+    </form>
+</main>
+
+
+
+</body>
+</html>
